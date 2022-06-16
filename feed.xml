@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://chesterhow.github.io/blacklily/feed.xml" rel="self" type="application/atom+xml" /><link href="https://chesterhow.github.io/blacklily/" rel="alternate" type="text/html" /><updated>2022-06-16T16:39:12+00:00</updated><id>https://chesterhow.github.io/blacklily/feed.xml</id><title type="html">blacklily</title><subtitle>Minimal Jekyll theme for storytellers</subtitle><entry><title type="html">Sticky Posts</title><link href="https://chesterhow.github.io/blacklily/2021-05-03/sticky-posts.html" rel="alternate" type="text/html" title="Sticky Posts" /><published>2021-05-03T00:00:00+00:00</published><updated>2021-05-03T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2021-05-03/sticky-posts</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2021-05-03/sticky-posts.html"><![CDATA[<p>Sticky, or pinned, posts are featured on the top of every page. blacklily provides some flexibility when it comes to this feature.<!--more--> There is no limit on the number of sticky posts you can have. Although do note that each page will show all your sticky posts + the paginated posts. So if you have 4 sticky posts and 5 posts per page, each page can display up to 9 posts.</p>
+
+<h2 id="making-a-post-sticky">Making a post “sticky”</h2>
+
+<p>Add <code class="language-plaintext highlighter-rouge">sticky: true</code> to the frontmatter of your blog post.</p>
+
+<h3 id="exclude-sticky-post-from-paginated-posts">Exclude sticky post from paginated posts</h3>
+
+<p>By default, sticky posts are still included in the paginated posts. To exclude a sticky post from paginated posts, add <code class="language-plaintext highlighter-rouge">hidden: true</code> to the frontmatter of that blog post.</p>
+
+<h2 id="example">Example</h2>
+
+<p>See the <a href="https://github.com/chesterhow/blacklily/blob/master/_posts/2017-03-29-introducing-blacklily.md">“Introducing blacklily” post</a>.</p>]]></content><author><name>Chester</name></author><category term="Tutorial" /><summary type="html"><![CDATA[Sticky, or pinned, posts are featured on the top of every page. blacklily provides some flexibility when it comes to this feature.]]></summary></entry><entry><title type="html">Managing Excerpt</title><link href="https://chesterhow.github.io/blacklily/2021-04-30/managing-excerpt.html" rel="alternate" type="text/html" title="Managing Excerpt" /><published>2021-04-30T00:00:00+00:00</published><updated>2021-04-30T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2021-04-30/managing-excerpt</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2021-04-30/managing-excerpt.html"><![CDATA[<p>You can customise the excerpt (the text displayed below each post on the homepage) using the <code class="language-plaintext highlighter-rouge">excerpt-separator</code>.<!--more--> Here’s how you can do so!</p>
+
+<h2 id="steps">Steps</h2>
+
+<ol>
+  <li>
+    <p>Add <code class="language-plaintext highlighter-rouge">excerpt_separator: &lt;!--more--&gt;</code> to the frontmatter of your blog post.</p>
+  </li>
+  <li>
+    <p>Insert this <code class="language-plaintext highlighter-rouge">&lt;!--more--&gt;</code> at where you would like the excerpt to cut off in your blog post.</p>
+  </li>
+</ol>
+
+<h3 id="note">Note</h3>
+
+<p>This follows <a href="https://jekyllrb.com/docs/posts/#post-excerpts">Jekyll’s recommended way of managing excerpts</a>.</p>
+
+<h2 id="example">Example</h2>
+
+<p>See <a href="https://github.com/chesterhow/blacklily/blob/master/_posts/2021-04-30-managing-excerpt.md">this post</a> or the <a href="https://github.com/chesterhow/blacklily/blob/master/_posts/2017-03-29-introducing-blacklily.md">“Introducing blacklily” post</a>.</p>]]></content><author><name>Chester</name></author><category term="Tutorial" /><summary type="html"><![CDATA[You can customise the excerpt (the text displayed below each post on the homepage) using the excerpt-separator.]]></summary></entry><entry><title type="html">Example Content</title><link href="https://chesterhow.github.io/blacklily/2017-03-16/example-content.html" rel="alternate" type="text/html" title="Example Content" /><published>2017-03-16T00:00:00+00:00</published><updated>2017-03-16T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2017-03-16/example-content</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2017-03-16/example-content.html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt ornare nibh, non elementum augue tempus eget. Pellentesque tempus scelerisque iaculis.<!--more--> Nullam interdum ultricies nibh quis sollicitudin. Donec ornare fermentum facilisis. Ut at sem ac sem imperdiet varius a eget tortor. Nam eu augue eget orci semper maximus in eget augue. Mauris ornare, nisl ut suscipit consectetur, mi quam interdum tellus, at rutrum quam eros ultrices mi.</p>
+
+<h1 id="headers">Headers</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="gh"># H1</span>
+<span class="gu">## H2</span>
+<span class="gu">### H3</span>
+<span class="gu">#### H4</span>
+<span class="gu">##### H5</span>
+<span class="gu">###### H6</span></code></pre></figure>
+
+<h1 id="h1">H1</h1>
+<h2 id="h2">H2</h2>
+<h3 id="h3">H3</h3>
+<h4 id="h4">H4</h4>
+<h5 id="h5">H5</h5>
+<h6 id="h6">H6</h6>
+
+<h1 id="text-formatting">Text formatting</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="p">-</span> <span class="gs">**Bold**</span>
+<span class="p">-</span> _Italics_
+<span class="p">-</span> ~~Strikethrough~~
+<span class="p">-</span> <span class="nt">&lt;ins&gt;</span>Underline<span class="nt">&lt;/ins&gt;</span>
+<span class="p">-</span> <span class="nt">&lt;sup&gt;</span>Superscript<span class="nt">&lt;/sup&gt;</span>
+<span class="p">-</span> <span class="nt">&lt;sub&gt;</span>Subscript<span class="nt">&lt;/sub&gt;</span>
+<span class="p">-</span> Abbreviation: <span class="nt">&lt;abbr</span> <span class="na">title=</span><span class="s">"HyperText Markup Language"</span><span class="nt">&gt;</span>HTML<span class="nt">&lt;/abbr&gt;</span>
+<span class="p">-</span> Citation: <span class="nt">&lt;cite&gt;</span><span class="ni">&amp;mdash;</span> Chester How<span class="nt">&lt;/cite&gt;</span></code></pre></figure>
+
+<ul>
+  <li><strong>Bold</strong></li>
+  <li><em>Italics</em></li>
+  <li><del>Strikethrough</del></li>
+  <li><ins>Underline</ins></li>
+  <li><sup>Superscript</sup></li>
+  <li><sub>Subscript</sub></li>
+  <li>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></li>
+  <li>Citation: <cite>— Chester How</cite></li>
+</ul>
+
+<h1 id="lists">Lists</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="p">1.</span> Ordered list item 1
+<span class="p">2.</span> Ordered list item 2
+<span class="p">3.</span> Ordered list item 3
+<span class="p">
+*</span> Unordered list item 1
+<span class="p">*</span> Unordered list item 2
+<span class="p">*</span> Unordered list item 3</code></pre></figure>
+
+<ol>
+  <li>Ordered list item 1</li>
+  <li>Ordered list item 2</li>
+  <li>Ordered list item 3</li>
+</ol>
+
+<ul>
+  <li>Unordered list item 1</li>
+  <li>Unordered list item 2</li>
+  <li>Unordered list item 3</li>
+</ul>
+
+<h1 id="links">Links</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">Check out blacklily on <span class="p">[</span><span class="nv">GitHub</span><span class="p">](</span><span class="sx">https://github.com/chesterhow/blacklily</span><span class="p">)</span>.</code></pre></figure>
+
+<p>Check out blacklily on <a href="https://github.com/chesterhow/blacklily">GitHub</a>.</p>
+
+<h1 id="images">Images</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="p">![</span><span class="nv">Placeholder image</span><span class="p">](</span><span class="sx">https://placehold.it/800x400</span> <span class="nn">"Placeholder image"</span><span class="p">)</span>
+
+<span class="p">![</span><span class="nv">Image with caption</span><span class="p">](</span><span class="sx">https://placehold.it/700x400</span> <span class="nn">"Image with caption"</span><span class="p">)</span>
+<span class="ge">_This is an image with a caption_</span></code></pre></figure>
+
+<p><img src="https://placehold.it/800x400" alt="Placeholder image" title="Placeholder image" /></p>
+
+<p><img src="https://placehold.it/700x400" alt="Image with caption" title="Image with caption" />
+<em>This is an image with a caption</em></p>
+
+<h1 id="code-and-syntax-highlighting">Code and Syntax Highlighting</h1>
+<p>Use back-ticks for <code class="language-plaintext highlighter-rouge">inline code</code>. Multi-line code snippets are supported too through Pygments.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Sample javascript code</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Sample python code
+</span><span class="n">s</span> <span class="o">=</span> <span class="s">"Python syntax highlighting"</span>
+<span class="k">print</span> <span class="n">s</span></code></pre></figure>
+
+<p>Adding <code class="language-plaintext highlighter-rouge">linenos</code> to the highlight tag enables line numbers.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre><span class="c1">// Sample javascript code</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h1 id="blockquotes">Blockquotes</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="gt">&gt; Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</span></code></pre></figure>
+
+<blockquote>
+  <p>Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+</blockquote>
+
+<h1 id="horizontal-rule--line-break">Horizontal Rule &amp; Line Break</h1>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">Use <span class="sb">`&lt;hr&gt;`</span> for horizontal rules
+
+<span class="nt">&lt;hr&gt;</span>
+
+and <span class="sb">`&lt;br&gt;`</span> for line breaks.
+
+<span class="nt">&lt;br&gt;</span></code></pre></figure>
+
+<p>Use <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> for horizontal rules</p>
+
+<hr />
+
+<p>and <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> for line breaks.</p>
+
+<p><br /></p>
+
+<p><em>The end</em></p>]]></content><author><name>Chester</name></author><category term="Example" /><summary type="html"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt ornare nibh, non elementum augue tempus eget. Pellentesque tempus scelerisque iaculis.]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="https://chesterhow.github.io/blacklily/2017-03-10/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-03-10T00:00:00+00:00</published><updated>2017-03-10T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2017-03-10/welcome-to-jekyll</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2017-03-10/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+
+<p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+
+<p>Jekyll also offers powerful support for code snippets: like these</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+
+<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>]]></content><author><name>Jekyll</name></author><category term="Jekyll" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry><entry><title type="html">The Case of the Missing Post</title><link href="https://chesterhow.github.io/blacklily/2017-03-07/the-case-of-the-missing-post.html" rel="alternate" type="text/html" title="The Case of the Missing Post" /><published>2017-03-07T00:00:00+00:00</published><updated>2017-03-07T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2017-03-07/the-case-of-the-missing-post</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2017-03-07/the-case-of-the-missing-post.html"><![CDATA[<p>Kitty power! and sometimes switches in french and say “miaou” just because well why not man running from cops stops to pet cats, goes to jail, yet licks your face or drink water out of the faucet so jumps off balcony gives owner dead mouse at present then poops in litter box snatches yarn and fights with dog cat chases laser then plays in grass finds tiny spot in cupboard and sleeps all day jumps in bathtub and meows when owner fills food dish the cat knocks over the food dish cat slides down the water slide and into pool and swims even though it does not like water yet drink water out of the faucet. Pelt around the house and up and down stairs chasing phantoms.</p>
+
+<p>Sit in window and stare ooo, a bird! yum. Sit and stare. Sweet beast loves cheeseburgers. Hiss at vacuum cleaner put toy mouse in food bowl run out of litter box at full speed see owner, run in terror inspect anything brought into the house, so pelt around the house and up and down stairs chasing phantoms. Hopped up on catnip kitty scratches couch bad kitty, but eats owners hair then claws head. Lie on your belly and purr when you are asleep kitty power! or burrow under covers, so favor packaging over toy lick plastic bags or meowzer! yet unwrap toilet paper.</p>
+
+<p><a href="http://www.catipsum.com/">Cat Ipsum</a></p>]]></content><author><name>Chester</name></author><category term="blacklily" /><summary type="html"><![CDATA[Kitty power! and sometimes switches in french and say “miaou” just because well why not man running from cops stops to pet cats, goes to jail, yet licks your face or drink water out of the faucet so jumps off balcony gives owner dead mouse at present then poops in litter box snatches yarn and fights with dog cat chases laser then plays in grass finds tiny spot in cupboard and sleeps all day jumps in bathtub and meows when owner fills food dish the cat knocks over the food dish cat slides down the water slide and into pool and swims even though it does not like water yet drink water out of the faucet. Pelt around the house and up and down stairs chasing phantoms.]]></summary></entry><entry><title type="html">The Mystery of the Filler Post</title><link href="https://chesterhow.github.io/blacklily/2017-03-06/the-mystery-of-the-filler-post.html" rel="alternate" type="text/html" title="The Mystery of the Filler Post" /><published>2017-03-06T00:00:00+00:00</published><updated>2017-03-06T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2017-03-06/the-mystery-of-the-filler-post</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2017-03-06/the-mystery-of-the-filler-post.html"><![CDATA[<p>Hornswaggle measured fer yer chains chase run a shot across the bow Chain Shot flogging Pirate Round galleon rope’s end aft. Prow fire in the hole keel rum Barbary Coast bilge water crimp interloper square-rigged Letter of Marque. Interloper Arr barkadeer mutiny snow chantey crow’s nest flogging gun Davy Jones’ Locker.</p>
+
+<p>Bilge jolly boat barque topsail interloper chandler spanker scuttle Arr sloop. Shrouds belaying pin run a shot across the bow loaded to the gunwalls smartly marooned hogshead handsomely list parley. Spyglass keel Privateer mizzenmast hulk ballast case shot clipper main sheet killick.</p>
+
+<p>Careen hempen halter Letter of Marque pillage swing the lead take a caulk Sail ho jury mast walk the plank ho. Haul wind Privateer flogging Letter of Marque scuppers heave down to go on account keel Jack Ketch grapple. Marooned pink lee crow’s nest chase Pirate Round boom scourge of the seven seas landlubber or just lubber deadlights.</p>
+
+<p><a href="http://pirateipsum.me/">Pirate Ipsum</a></p>]]></content><author><name>Chester</name></author><category term="blacklily" /><summary type="html"><![CDATA[Hornswaggle measured fer yer chains chase run a shot across the bow Chain Shot flogging Pirate Round galleon rope’s end aft. Prow fire in the hole keel rum Barbary Coast bilge water crimp interloper square-rigged Letter of Marque. Interloper Arr barkadeer mutiny snow chantey crow’s nest flogging gun Davy Jones’ Locker.]]></summary></entry><entry><title type="html">Pagination Post</title><link href="https://chesterhow.github.io/blacklily/2017-03-05/pagination-post.html" rel="alternate" type="text/html" title="Pagination Post" /><published>2017-03-05T00:00:00+00:00</published><updated>2017-03-05T00:00:00+00:00</updated><id>https://chesterhow.github.io/blacklily/2017-03-05/pagination-post</id><content type="html" xml:base="https://chesterhow.github.io/blacklily/2017-03-05/pagination-post.html"><![CDATA[<p>Here we see <strong>blacklily’s</strong> pagination feature in action. It is set to 5 posts per page by default. Feel free to change this number in the <code class="language-plaintext highlighter-rouge">_config.yml</code> file!</p>]]></content><author><name>Chester</name></author><category term="blacklily" /><summary type="html"><![CDATA[Here we see blacklily’s pagination feature in action. It is set to 5 posts per page by default. Feel free to change this number in the _config.yml file!]]></summary></entry></feed>
