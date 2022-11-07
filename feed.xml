@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="https://lalishansh.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://lalishansh.github.io/" rel="alternate" type="text/html" /><updated>2022-11-07T15:54:05+00:00</updated><id>https://lalishansh.github.io/feed.xml</id><title type="html">The-RED Base</title><subtitle></subtitle><entry><title type="html">Linear Bounding Volume Hierarchy</title><link href="https://lalishansh.github.io/2021-09-27/LBVH/" rel="alternate" type="text/html" title="Linear Bounding Volume Hierarchy" /><published>2021-09-27T00:00:00+00:00</published><updated>2021-09-27T00:00:00+00:00</updated><id>https://lalishansh.github.io/2021-09-27/LBVH</id><content type="html" xml:base="https://lalishansh.github.io/2021-09-27/LBVH/"><![CDATA[<h1 id="lbvh-as-easy-as-possible">LBVH-As easy as possible</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="https://lalishansh.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://lalishansh.github.io/" rel="alternate" type="text/html" /><updated>2022-11-07T17:09:23+00:00</updated><id>https://lalishansh.github.io/feed.xml</id><title type="html">The-RED Base</title><subtitle></subtitle><entry><title type="html">Linear Bounding Volume Hierarchy</title><link href="https://lalishansh.github.io/2021-09-27/LBVH/" rel="alternate" type="text/html" title="Linear Bounding Volume Hierarchy" /><published>2021-09-27T00:00:00+00:00</published><updated>2021-09-27T00:00:00+00:00</updated><id>https://lalishansh.github.io/2021-09-27/LBVH</id><content type="html" xml:base="https://lalishansh.github.io/2021-09-27/LBVH/"><![CDATA[<h1 id="lbvh-as-easy-as-possible">LBVH-As easy as possible</h1>
 <p>This blog post aims how I simplified Z-Order Curve based Linear Bounding Volume Hierarchy and implemented it via CPU (GPU based implimentation becomes lot more easier to understand afterwards).</p>
 
 <h2 id="what-is-lbvh-exactly-">What is LBVH exactly? <br /></h2>
@@ -47,7 +47,7 @@ uint16_t[3] float_to_uint16coord = {
 <p>now start from most to least significant bit (left to right) and create the Morton code, well actually you can find many Morton code generation references online.</p>
 
 <center>
-    <img src="/src/assets/posts/2021-09-27-LBVH/morton code construction.gif" style="width: 40%; height: width; margin: 15 px;" />
+    <img src="/src/assets/posts/2021-09-27-LBVH/morton code construction.gif" style="width: 40%; height: width; margin: 15 px; mix-blend-mode: screen" />
 </center>
 
 <p>This <a href="https://fgiesen.wordpress.com/2009/12/13/decoding-morton-codes/">article</a> explains Morton code encoding and decoding much better than I can possibly could.</p>
@@ -78,7 +78,7 @@ std::sort (keys.begin (), keys.end (),
 
 <div style="overflow:hidden;">
 <center>
-    <img src="/src/assets/posts/2021-09-27-LBVH/for-morton-code.png" style="overflow: hidden; width: 65%; height: width; margin: 0px 0px -75px 0px;" />
+    <img src="/src/assets/posts/2021-09-27-LBVH/for-morton-code.png" style="overflow: hidden; width: 65%; height: width; margin: 0px 0px -75px 0px; mix-blend-mode: screen" />
 </center>  
 </div>
 
@@ -86,14 +86,14 @@ std::sort (keys.begin (), keys.end (),
 
 <div style="overflow:hidden;">
 <center>
-    <img src="/src/assets/posts/2021-09-27-LBVH/for-morton-code.png" style="overflow: hidden; width: 65%; height: width; margin: -135px 0px 0px 0px;" />
+    <img src="/src/assets/posts/2021-09-27-LBVH/for-morton-code.png" style="overflow: hidden; width: 65%; height: width; margin: -135px 0px 0px 0px;mix-blend-mode: screen" />
 </center>  
 </div>
 
 <p>For every internal node we use ‘☊’ neighbouring leaf node’s uncommon most significant bit, then these internal are pushed to a queue from lowest to highest (of the uncommon most significant bit position). It checks the neighbour leaf, for right link check whether right neighbouring leaf has parents, if yes keep climbing up until you find orphan node, then adopt as left child, repeat this for right child again, using these children find encompassing Bounding box, move to the next in line. Ultimately root node will carry scene’s bounding box. Superb you now have your LBVH.</p>
 
 <center>
-    <img src="/src/assets/posts/2021-09-27-LBVH/LBVH-tree-construction.gif" style="width: 65%; height: width; margin: 15px;" />
+    <img src="/src/assets/posts/2021-09-27-LBVH/LBVH-tree-construction.gif" style="width: 65%; height: width; margin: 15px;mix-blend-mode: screen" />
 </center>
 
 <p>Note: when performing over multiple cores, instead of checking for parents, the future parents data can directly be inferred from bit differences among the region (this can be another topic for future discussions).
