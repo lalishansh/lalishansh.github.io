@@ -41,7 +41,16 @@
   
 </head>
 
-
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" 
+          type="text/javascript"></script>
   <body>
 
     <nav class="nav">
@@ -101,14 +110,7 @@
 <h2 id="what-is-lbvh-exactly-">What is LBVH exactly? <br /></h2>
 <p>Lauterbach et al. [LGS∗ 09] proposed a way to construct a BVH tree by sorting input primitives along a space filling curve, bringing from 3D to 1D. The Idea was to construct special key values called Morton-Code from 3D Coordinates of every primitive, making them leaf nodes and build a tree on top of it. In 2012, Tero Karras improved the proposed paper by converting Top-down tree construction to bottom-up and node prediction so that it can be constructed in parallel inside a GPU.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Assuming you are here just for extremely simple form of Fast and Simple Agglomerative LBVH Construction, we will only focus on constructing the tree over CPU on single thread and no node prediction. It is highly recommended to read the paper at  (download link) and blog post Thinking Parallel, Part III: Tree Construction on the GPU</td>
-      <td>NVIDIA Developer Blog.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Assuming you are here just for extremely simple form of Fast and Simple Agglomerative LBVH Construction, we will only focus on constructing the tree over CPU on single thread and no node prediction. It is highly recommended to read the paper at  (download link) and blog post Thinking Parallel, Part III: Tree Construction on the GPU, NVIDIA Developer Blog.</p>
 
 <h2 id="exploring-morton-codes">Exploring Morton Codes:</h2>
 <p>Mr. Asger Hoedt has a very good blog post at Morton Codes | Asger Hoedt. <br />
@@ -131,8 +133,9 @@ Morton codes provide a way to represent multidimensional data to one dimension w
 
 <p>Scene AABB {xs1 , ys1 , zs1}, {xs2, ys2 , zs2}</p>
 
-<p>\(newPt.x = {Pt.x – xs1 \over xs2 - xs1}\)
-same goes for y &amp; z.</p>
+\[newPt.x = {Pt.x – xs1 \over xs2 - xs1}\]
+
+<p>same goes for y &amp; z.</p>
 
 <p>Now that every coordinate is within ∈ [0 1]. We have to only worry about what comes after the decimal point. Now watch which size of key(Morton code) you want to construct, is it 32-bit(suggested for small scene with less no. of artifacts) or 64-bit (for larger no. of artifacts) or you can go even crazy with even larger sizes like uint32_t[3] etc. Lets say you took 32-bit then 32/3 ~ 10.6 or 11 + 11 + 10 for x,y,z channel.</p>
 
@@ -224,7 +227,7 @@ Sort this array.</p>
 
     <footer>
   <span>
-    &copy; <time datetime="2022-11-07 17:09:23 +0000">2022</time> . Made with Jekyll using the <a href="https://github.com/lalishansh/blacklily/">blacklily</a> theme.
+    &copy; <time datetime="2022-11-07 17:17:28 +0000">2022</time> . Made with Jekyll using the <a href="https://github.com/lalishansh/blacklily/">blacklily</a> theme.
   </span>
 </footer>
 
