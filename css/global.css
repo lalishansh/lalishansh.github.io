@@ -1,0 +1,2198 @@
+/* =========================================
+   0. Base16 theming system
+
+   A scheme defines 16 colours with fixed semantics:
+
+     base00  Default Background        base08  Red      (variables, errors)
+     base01  Lighter Background        base09  Orange   (integers, constants)
+     base02  Selection Background      base0A  Yellow   (classes, search)
+     base03  Comments, Invisibles      base0B  Green    (strings)
+     base04  Dark Foreground           base0C  Cyan     (regex, escapes)
+     base05  Default Foreground        base0D  Blue     (functions)
+     base06  Light Foreground          base0E  Magenta  (keywords)
+     base07  Light Background          base0F  Brown    (deprecated)
+
+   Switch schemes by setting [data-theme] on <html> or <body>.
+   ========================================= */
+
+:root {
+  /* Layer system */
+  --layer-up: 1;
+  --layer-upper: 2;
+  --layer-header: 3;
+  --layer-topmost: 4;
+
+  /* Default scheme: Base16 Default Light (Chris Kempson) */
+  --base00: #f8f8f8;
+  --base01: #e8e8e8;
+  --base02: #d8d8d8;
+  --base03: #b8b8b8;
+  --base04: #585858;
+  --base05: #383838;
+  --base06: #282828;
+  --base07: #181818;
+  --base08: #ab4642;
+  --base09: #dc9656;
+  --base0A: #f7ca88;
+  --base0B: #a1b56c;
+  --base0C: #86c1b9;
+  --base0D: #7cafc2;
+  --base0E: #ba8baf;
+  --base0F: #a16946;
+}
+
+/* ## Semantic aliases — write styles against these, not base00..base0F */
+:root {
+  --bg: var(--base00);
+  --bg-alt: var(--base01);
+  --selection: var(--base02);
+  --muted: var(--base03);
+  --fg-dim: var(--base04);
+  --fg: var(--base05);
+  --fg-bright: var(--base06);
+  --bg-bright: var(--base07);
+
+  --red: var(--base08);
+  --orange: var(--base09);
+  --yellow: var(--base0A);
+  --green: var(--base0B);
+  --cyan: var(--base0C);
+  --blue: var(--base0D);
+  --magenta: var(--base0E);
+  --brown: var(--base0F);
+
+  --accent: var(--blue);
+}
+
+/* =========================================
+   1. Scheme definitions
+   ========================================= */
+
+[data-theme="default-light"] {
+  --base00: #f8f8f8; --base01: #e8e8e8; --base02: #d8d8d8; --base03: #b8b8b8;
+  --base04: #585858; --base05: #383838; --base06: #282828; --base07: #181818;
+  --base08: #ab4642; --base09: #dc9656; --base0A: #f7ca88; --base0B: #a1b56c;
+  --base0C: #86c1b9; --base0D: #7cafc2; --base0E: #ba8baf; --base0F: #a16946;
+}
+
+[data-theme="default-dark"] {
+  --base00: #181818; --base01: #282828; --base02: #383838; --base03: #585858;
+  --base04: #b8b8b8; --base05: #d8d8d8; --base06: #e8e8e8; --base07: #f8f8f8;
+  --base08: #ab4642; --base09: #dc9656; --base0A: #f7ca88; --base0B: #a1b56c;
+  --base0C: #86c1b9; --base0D: #7cafc2; --base0E: #ba8baf; --base0F: #a16946;
+}
+
+/* Dracula — Jamy Golden (http://github.com/jamygolden) */
+[data-theme="dracula"] {
+  --base00: #282a36; --base01: #44475a; --base02: #44475a; --base03: #6272a4;
+  --base04: #bd93f9; --base05: #f8f8f2; --base06: #f8f8f2; --base07: #ffffff;
+  --base08: #ff5555; --base09: #ffb86c; --base0A: #f1fa8c; --base0B: #50fa7b;
+  --base0C: #8be9fd; --base0D: #bd93f9; --base0E: #ff79c6; --base0F: #00f769;
+}
+
+/* Nord — arcticicestudio */
+[data-theme="nord"] {
+  --base00: #2e3440; --base01: #3b4252; --base02: #434c5e; --base03: #4c566a;
+  --base04: #d8dee9; --base05: #e5e9f0; --base06: #eceff4; --base07: #8fbcbb;
+  --base08: #bf616a; --base09: #d08770; --base0A: #ebcb8b; --base0B: #a3be8c;
+  --base0C: #88c0d0; --base0D: #81a1c1; --base0E: #b48ead; --base0F: #5e81ac;
+}
+
+/* Solarized — Ethan Schoonover */
+[data-theme="solarized-light"] {
+  --base00: #fdf6e3; --base01: #eee8d5; --base02: #93a1a1; --base03: #839496;
+  --base04: #657b83; --base05: #586e75; --base06: #073642; --base07: #002b36;
+  --base08: #dc322f; --base09: #cb4b16; --base0A: #b58900; --base0B: #859900;
+  --base0C: #2aa198; --base0D: #268bd2; --base0E: #6c71c4; --base0F: #d33682;
+}
+
+[data-theme="solarized-dark"] {
+  --base00: #002b36; --base01: #073642; --base02: #586e75; --base03: #657b83;
+  --base04: #839496; --base05: #93a1a1; --base06: #eee8d5; --base07: #fdf6e3;
+  --base08: #dc322f; --base09: #cb4b16; --base0A: #b58900; --base0B: #859900;
+  --base0C: #2aa198; --base0D: #268bd2; --base0E: #6c71c4; --base0F: #d33682;
+}
+
+/* Gruvbox dark, hard — Dawid Kurek, morhetz */
+[data-theme="gruvbox-dark"] {
+  --base00: #1d2021; --base01: #3c3836; --base02: #504945; --base03: #665c54;
+  --base04: #bdae93; --base05: #d5c4a1; --base06: #ebdbb2; --base07: #fbf1c7;
+  --base08: #fb4934; --base09: #fe8019; --base0A: #fabd2f; --base0B: #b8bb26;
+  --base0C: #8ec07c; --base0D: #83a598; --base0E: #d3869b; --base0F: #d65d0e;
+}
+
+/* Follow the OS preference until the reader picks a scheme explicitly. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --base00: #181818; --base01: #282828; --base02: #383838; --base03: #585858;
+    --base04: #b8b8b8; --base05: #d8d8d8; --base06: #e8e8e8; --base07: #f8f8f8;
+  }
+}
+
+
+/* =========================================
+   2. Default layout
+   ========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6em;
+
+  /* The page scrollbar is themed but left visible, unlike the ones inside
+     content blocks: it is the only indicator of how far down the document the
+     reader is, and hiding it until hover would cost more than it gains. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 5px;
+}
+
+/* The page spans the full viewport; individual blocks opt into the reading
+   column below via --content-width. */
+body {
+  --content-width: 42rem;
+  --aside-width: 15rem;
+  --tree-width: 15rem;
+  --layout-gap: 2.5rem;
+
+  margin: 0;
+  width: 100%;
+  padding: 2rem 1.5rem 4rem;
+
+  /* Column layout so a short page still pushes the footer to the bottom of the
+     viewport instead of leaving it floating mid-screen. */
+  min-height: 100vh;
+  min-height: 100dvh; /* accounts for mobile browser chrome */
+  display: flex;
+  flex-direction: column;
+  font: 1rem/1.7 system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tiled texture behind every page. It sits on a fixed pseudo-element rather
+   than on `body { background-image }` for two reasons: it stays put while the
+   page scrolls, and its opacity can be tuned on its own. The tile has baked-in
+   colours, so painting it opaquely would override every theme -- at this
+   opacity the theme's --bg still shows through and sets the overall tone. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("../background.svg") repeat 0 0 / 80px 80px;
+  opacity: var(--bg-texture, 0.05);
+}
+
+/* Takes up the slack in the body column, which is what holds the footer down. */
+main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* Opted into with `wide: true` in front matter. Prose wants a narrow measure,
+   but a grid of cards just looks starved at 42rem. */
+main.wide {
+  --content-width: 68rem;
+}
+
+/* Single column by default; the aside moves alongside on wide screens. */
+.page-layout {
+  display: grid;
+  gap: var(--layout-gap);
+}
+
+.page-content {
+  min-width: 0;
+}
+
+/* The panels come first in the markup so they stack above the text on narrow
+   screens; the media queries below place them into columns instead. Which
+   columns exist is driven by the has-* classes the layouts set, so a page
+   whose outline or tree did not render reserves no empty track. */
+
+@media (min-width: 1100px) {
+  main {
+    max-width: calc(
+      var(--content-width) + var(--aside-width) + var(--layout-gap)
+    );
+  }
+
+  .page-layout.has-toc {
+    grid-template-columns: minmax(0, 1fr) var(--aside-width);
+    align-items: start;
+    transition: grid-template-columns 0.3s ease;
+  }
+
+  /* Collapsed, the aside shrinks to just its header and the text column
+     takes the width it gives up. */
+  .page-layout.has-toc.toc-collapsed {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .page-layout.has-toc > .page-content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* With no panel there is no column to hold the text in, and prose would run
+     to the full width of <main>. Keep it to the measure instead. */
+  .page-layout:not(.has-toc):not(.has-tree) > .page-content {
+    max-width: var(--content-width);
+  }
+
+  .page-layout.has-toc > .toc {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Not yet wide enough for three columns: the tree stays stacked, spanning
+     the full width above the text rather than auto-placing into the grid and
+     colliding with the outline. */
+  .page-layout.has-toc.has-tree > .tree {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .page-layout.has-toc.has-tree > .page-content,
+  .page-layout.has-toc.has-tree > .toc {
+    grid-row: 2;
+  }
+}
+
+/* Three columns need the content measure plus both asides and two gaps, which
+   is around 1230px; 1300 leaves a little breathing room. */
+@media (min-width: 1300px) {
+  /* :has() is what lets the width react to a panel the layout rendered, since
+     <main> itself carries no knowledge of the tree. Without support the grid
+     still applies, only more cramped. */
+  main:has(.page-layout.has-tree) {
+    max-width: calc(
+      var(--content-width) + var(--tree-width) + var(--aside-width) +
+        var(--layout-gap) * 2
+    );
+  }
+
+  .page-layout.has-tree {
+    grid-template-columns: var(--tree-width) minmax(0, 1fr);
+    align-items: start;
+    transition: grid-template-columns 0.3s ease;
+  }
+
+  .page-layout.has-tree > .tree {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .page-layout.has-tree > .page-content {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .page-layout.has-tree.has-toc {
+    grid-template-columns: var(--tree-width) minmax(0, 1fr) var(--aside-width);
+  }
+
+  /* All three are restated for the has-toc case rather than inherited from the
+     rules above. The stacking rules in the 1100px block are qualified by both
+     has-tree and has-toc, so they are a class more specific than the two-column
+     rules here and would otherwise keep the tree spanning the full width with
+     the text pushed onto a second row. */
+  .page-layout.has-tree.has-toc > .tree {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .page-layout.has-tree.has-toc > .page-content {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .page-layout.has-tree.has-toc > .toc {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  /* Either panel can be collapsed on its own, so all four combinations need
+     spelling out. A collapsed panel shrinks to its header and the text column
+     absorbs the difference. */
+  .page-layout.has-tree.tree-collapsed {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .page-layout.has-tree.has-toc.tree-collapsed {
+    grid-template-columns: auto minmax(0, 1fr) var(--aside-width);
+  }
+
+  .page-layout.has-tree.has-toc.toc-collapsed {
+    grid-template-columns: var(--tree-width) minmax(0, 1fr) auto;
+  }
+
+  .page-layout.has-tree.has-toc.tree-collapsed.toc-collapsed {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  /* Matches the outline's treatment in its own column: no panel chrome, and
+     it follows the reader down the page. */
+  .page-layout.has-tree > .tree {
+    position: sticky;
+    top: 2rem;
+    margin: 0;
+    background: none;
+  }
+}
+
+::selection {
+  background: var(--selection);
+}
+
+a {
+  color: var(--accent);
+}
+
+h1, h2, h3 {
+  color: var(--fg-bright);
+  line-height: 1.3;
+}
+
+h1 { font-size: 2.5rem; margin-bottom: 0.25rem; }
+h2 { margin: 2rem 0 0.5rem; }
+
+p, ul, ol { margin-bottom: 1rem; }
+ul, ol { padding-left: 1.5rem; }
+
+/* Inline code only. A bare `code` selector also matches the <code> that
+   Chroma puts inside every <pre>, including the line-number column, where the
+   padding and background render as stray gaps and mismatched row heights. */
+:not(pre) > code {
+  background: var(--bg-alt);
+  color: var(--magenta);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Code inside a block inherits from the <pre>, which owns the padding. */
+pre > code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--selection);
+  margin: 2rem 0;
+}
+
+/* =========================================
+   3. Header / footer
+   ========================================= */
+
+/* Three pills: brand, navigation, tools. */
+/* Spans the full page width, unlike .hero which sits in the reading column. */
+.site-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 3.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+}
+
+.brand {
+  font-weight: 600;
+  color: var(--fg-bright);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav a {
+  color: var(--fg-dim);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+}
+
+.links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.links a {
+  display: inline-flex;
+  color: var(--fg-dim);
+}
+
+.links a:hover {
+  color: var(--accent);
+}
+
+.links svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+/* Divider between the icons and the theme swatch. */
+.site-tools .theme-picker {
+  padding-left: 1rem;
+  border-left: 1px solid var(--selection);
+}
+
+/* ## Mobile menu */
+
+.menu-toggle {
+  display: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--fg-bright);
+  cursor: pointer;
+}
+
+.site-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-topmost);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: 2rem;
+  background: var(--bg);
+}
+
+.site-menu.open {
+  display: flex;
+}
+
+.menu-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--fg-dim);
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.menu-close:hover {
+  color: var(--accent);
+}
+
+.site-menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 1.4rem;
+}
+
+.site-menu-nav a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.site-menu .links svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.site-menu .links {
+  gap: 1.5rem;
+}
+
+/* Prevents the page behind the overlay from scrolling. */
+body.menu-open {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  .site-nav,
+  .site-tools {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+footer {
+  flex-shrink: 0;
+  margin-top: 4rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* =========================================
+   4. Page hero
+   ========================================= */
+
+/* Spans the full layout width, above both columns. */
+.hero {
+  width: 100%;
+  margin: 0 auto 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--selection);
+  text-align: left;
+}
+
+/* Cover banner. The aspect ratio is fixed and reserved before the image loads,
+   so a remote cover cannot shift the title and body downwards as it arrives. */
+.hero-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 5;
+  height: auto;
+  object-fit: cover;
+  margin: 0.75rem 0 0.25rem;
+  border-radius: 10px;
+  background: var(--bg-alt);
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.hero-path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.hero-path a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0;
+}
+
+.hero-path a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.hero-path > * + *::before {
+  content: "/";
+  margin: 0 0.4rem;
+  color: var(--selection);
+}
+
+.hero-lede {
+  color: var(--fg-dim);
+  margin-bottom: 0.75rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.hero-meta dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hero-meta dd {
+  margin: 0;
+  color: var(--fg);
+}
+
+.hero-meta code {
+  background: none;
+  padding: 0;
+  color: var(--green);
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.9rem 0 0;
+}
+
+.hero-tags li {
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  color: var(--fg-dim);
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+}
+
+/* =========================================
+   5. Section listings
+   ========================================= */
+
+.page-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-list-item > a {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.page-list-item > a:hover {
+  background: var(--bg-alt);
+  border-color: var(--selection);
+}
+
+/* Fixed box with a reserved ratio, so rows do not jump as thumbnails arrive. */
+.page-list-cover {
+  flex: none;
+  width: 6rem;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--bg-alt);
+}
+
+.page-list-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.page-list-title {
+  font-weight: 600;
+  color: var(--fg-bright);
+}
+
+.page-list-item > a:hover .page-list-title {
+  color: var(--accent);
+}
+
+.page-list-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.page-list-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.15rem;
+}
+
+.page-list-tags span {
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  color: var(--fg-dim);
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+}
+
+/* The row background already reads as the hover target; a second one inside it
+   only muddies it. */
+.page-list-item > a:hover .page-list-tags span {
+  background: var(--bg);
+}
+
+/* ## Home page digests
+   Each section on the home page gets a heading row: the section name on the
+   left, a link through to the full listing on the right. */
+
+.home-section {
+  margin-top: 3rem;
+}
+
+.home-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--selection);
+}
+
+/* The prose heading rules in .page-content set a large top margin, which the
+   .home-section margin already provides. */
+.page-content .home-section__head h2 {
+  margin: 0;
+}
+
+.home-section__head h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-section__head h2 a:hover {
+  color: var(--accent);
+}
+
+.home-section__more {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.home-section__more:hover {
+  color: var(--accent);
+}
+
+/* ## Post cards
+   Modelled on the JetBrains blog listing: a full-bleed 16:9 image, a clamped
+   title and excerpt so the rows stay even, and a footer pinned to the bottom.
+   Hover is a border-colour change rather than a shadow, which keeps a dense
+   grid calm. */
+
+.card-grid {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+}
+
+@media (max-width: 1080px) {
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0.75rem;
+  color: inherit;
+  text-decoration: none;
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+/* Flush to the top and sides. The fixed ratio makes every cover in the grid
+   the same size whatever the source image is. */
+.card__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+.card__header {
+  padding: 1rem 1rem 0;
+}
+
+/* Two lines, so a long title cannot push the excerpt out of line with the
+   cards beside it. */
+/* The card grid lives inside .page-content, whose prose heading rules match
+   `h4` with the same specificity and are declared later, so they would
+   otherwise win and impose the 2rem article spacing. Hence `.card` here. */
+.card .card__header h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--fg-bright);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.card:hover .card__header h4,
+.card:focus-visible .card__header h4 {
+  color: var(--accent);
+}
+
+.card__body {
+  padding: 0 1rem;
+  color: var(--fg-dim);
+}
+
+.card__body p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+/* margin-top:auto is what pins the footer to the bottom of a flex column, so
+   the metadata lines up across a row of cards of differing content length. */
+.card__footer {
+  margin-top: auto;
+  padding: 1rem 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.card .card__footer ul {
+  padding-left: 0;
+}
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card__tags li {
+  font-size: 0.68rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  color: var(--fg-dim);
+  background: var(--bg);
+  border: 1px solid var(--selection);
+}
+
+/* Dates left, length right. */
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.6rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.card__dates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.card__updated::before {
+  content: "⋅";
+  margin: 0 0.35rem;
+}
+
+.card__words {
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: none;
+  }
+}
+
+
+/* =========================================
+   6. Table of contents
+   ========================================= */
+
+/* The outline sits in normal flow inside the article and is always open. It is
+   deliberately NOT sticky: changing its height while pinned would resize the
+   document, move the scroll position, and fight whatever triggered the change.
+   The pinned version is .toc-bar below, which is fixed and so costs no layout. */
+.panel {
+  background: var(--bg-alt);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 1rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 0.9rem;
+}
+
+/* The whole row toggles, not just the button sitting in it. */
+.panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 0.5rem; */
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  color: var(--fg-bright);
+  cursor: pointer;
+  user-select: none;
+}
+
+.panel-toggle {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.panel-toggle::before {
+  content: "▾";
+}
+
+.panel-toggle[aria-expanded="false"]::before {
+  content: "▸";
+}
+
+/* Hovering anywhere on the row recolours the label and the chevron together,
+   so the whole thing reads as one control rather than a button with a caption.
+   The row is the hover target, so this covers the button as well. */
+.panel-title:hover,
+.panel-title:hover .panel-toggle {
+  color: var(--accent);
+}
+
+.panel.collapsed nav {
+  display: none;
+}
+
+.panel.collapsed .panel-title {
+  margin-bottom: 0;
+}
+
+/* ## Pinned bar, shown only while the outline is scrolled off screen */
+
+.toc-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--layer-header);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--selection);
+  transform: translateY(-100%);
+  transition: transform 0.25s ease;
+}
+
+.toc-bar.visible {
+  transform: none;
+}
+
+.toc-bar .panel-title {
+  flex: none;
+  margin: 0;
+  gap: 0.4rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Breadcrumb of the current heading and its ancestors, built in global.js. */
+.toc-path {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  line-height: 1.7rem;
+  white-space: nowrap;
+}
+
+.toc-path .crumb {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.toc-path .crumb:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* The heading actually being read. Never shrinks, so it stays legible while
+   the ancestors above it truncate. */
+.toc-path .crumb:last-child {
+  flex: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* The separator belongs to the crumb's box but not to its link: without this
+   the gap between two crumbs would navigate to the one on its right. */
+.toc-path .crumb + .crumb::before {
+  content: "›";
+  margin: 0 0.4rem;
+  color: var(--muted);
+  font-weight: 400;
+  pointer-events: none;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Full outline, dropped below the bar. Absolute, so opening it also costs
+   no layout and cannot disturb the scroll position. */
+.toc-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem 1rem;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--selection);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
+}
+
+.toc-bar.expanded .toc-dropdown {
+  display: block;
+}
+
+/* ## Shared list styling and scroll containers */
+
+.panel nav,
+.toc-dropdown {
+  max-height: 60vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transition: scrollbar-color 0.3s ease;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent;
+}
+
+.panel:hover nav,
+.panel:focus-within nav,
+.toc-dropdown:hover,
+.toc-bar:focus-within .toc-dropdown {
+  scrollbar-color: var(--muted) transparent;
+}
+
+/* Chrome, Safari */
+.panel nav::-webkit-scrollbar,
+.toc-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.panel nav::-webkit-scrollbar-track,
+.toc-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel nav::-webkit-scrollbar-thumb,
+.toc-dropdown::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.panel:hover nav::-webkit-scrollbar-thumb,
+.panel:focus-within nav::-webkit-scrollbar-thumb,
+.toc-dropdown:hover::-webkit-scrollbar-thumb,
+.toc-bar:focus-within .toc-dropdown::-webkit-scrollbar-thumb {
+  background: var(--muted);
+}
+
+.panel nav > ul,
+.toc-dropdown > nav > ul {
+  margin: 0;
+}
+
+.toc ul,
+.toc-dropdown ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.toc ul ul,
+.toc-dropdown ul ul {
+  padding-left: 1rem;
+}
+
+.toc li,
+.toc-dropdown li {
+  margin: 0.15rem 0;
+}
+
+/* One entry per line, so a long title truncates instead of wrapping. */
+.toc a,
+.toc-dropdown a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.7rem;
+  color: var(--fg-dim);
+  text-decoration: none;
+}
+
+.toc a:hover,
+.toc-dropdown a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Set by the scroll-spy in global.js */
+.toc a.active,
+.toc-dropdown a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Wide screens show the whole outline in its own column beside the text. */
+@media (min-width: 1100px) {
+  .toc {
+    position: sticky;
+    top: 2rem;
+    margin: 0;
+    background: none;
+  }
+
+  .panel nav {
+    max-height: calc(100vh - 8rem);
+  }
+
+  /* The sidebar is always on screen here, so the pinned bar is redundant. */
+  .toc-bar {
+    display: none;
+  }
+}
+
+/* =========================================
+   7. Docs tree
+   ========================================= */
+
+/* Directory nodes are <details>, so each folder opens and closes on its own
+   with no JavaScript. Only the chevron and the entries differ from the
+   outline; the panel chrome and the scrollbars are shared. */
+
+.tree nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* A guide line down each level, which is what makes depth readable once
+   several folders are open at once. */
+.tree nav ul ul {
+  margin-left: 0.55rem;
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--selection);
+}
+
+.tree li {
+  margin: 0.1rem 0;
+}
+
+/* One entry per line, so a long title truncates instead of wrapping. */
+.tree a {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.7rem;
+  color: var(--fg-dim);
+  text-decoration: none;
+}
+
+.tree a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.tree a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tree summary {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  /* Suppresses the default disclosure triangle, which cannot be positioned. */
+  list-style: none;
+}
+
+/* Safari draws its own marker regardless of list-style. */
+.tree summary::-webkit-details-marker {
+  display: none;
+}
+
+.tree summary > a {
+  flex: 1;
+}
+
+.tree-marker {
+  flex: none;
+  width: 1rem;
+  font-size: 0.65rem;
+  line-height: 1.7rem;
+  text-align: center;
+  color: var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.tree-marker::before {
+  content: "\25b8";
+}
+
+.tree details[open] > summary .tree-marker {
+  transform: rotate(90deg);
+}
+
+.tree summary:hover .tree-marker {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tree-marker {
+    transition: none;
+  }
+}
+
+/* =========================================
+   8. Theme picker
+   ========================================= */
+
+/* A single swatch showing the active scheme; the rest fly out on hover. */
+.theme-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.theme-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: var(--layer-topmost);
+  flex-direction: column;
+  gap: 0.5rem;
+  /* The top margin is padding instead, so the pointer never crosses a gap
+     between the swatch and the list and dismisses it. */
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
+}
+
+.theme-picker:hover .theme-list,
+.theme-picker:focus-within .theme-list {
+  display: flex;
+}
+
+/* Bridges the gap so the list survives the pointer travelling to it. */
+.theme-list::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem 0 auto 0;
+  height: 0.5rem;
+}
+
+/* In the mobile overlay every swatch is laid out inline instead. */
+.theme-picker.inline .theme-list {
+  display: flex;
+  position: static;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  box-shadow: none;
+}
+
+.theme-btn {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  cursor: pointer;
+  /* Preview the scheme: background on one half, accent on the other. */
+  background: linear-gradient(135deg, var(--base00) 50%, var(--base0D) 50%);
+}
+
+.theme-btn[aria-pressed="true"] {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   9. Comments (utterances)
+   ========================================= */
+
+.utterances {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--selection);
+}
+
+/* The widget injects an iframe; keep it within the content column. */
+.utterances iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* =========================================
+   10. Back to top
+   ========================================= */
+
+.to-top,
+.to-return {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: var(--layer-topmost);
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+  cursor: pointer;
+
+  /* Hidden until the page is scrolled; `visibility` keeps it out of the tab
+     order while faded out. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.5rem);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.to-top.visible,
+.to-return.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top:hover,
+.to-return:hover {
+  filter: brightness(1.15);
+}
+
+/* Stacked above Back to top, and deliberately quieter: returning to where you
+   were is the secondary action of the pair. */
+.to-return {
+  bottom: 4.75rem;
+  color: var(--fg);
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top,
+  .to-return {
+    transition: none;
+  }
+}
+
+/* =========================================
+   11. Content: syntax highlighting
+
+   Chroma token classes mapped onto the base16 palette, so code recolours
+   with the active scheme. Base16 assigns these roles deliberately:
+   0B green strings, 0D blue functions, 0E magenta keywords, 09 orange numbers.
+   ========================================= */
+
+/* Comments and preprocessor */
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf,
+.chroma .cd {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Keywords */
+.chroma .k,
+.chroma .kc,
+.chroma .kd,
+.chroma .kn,
+.chroma .kp,
+.chroma .kr {
+  color: var(--magenta);
+}
+
+/* Types and classes */
+.chroma .kt,
+.chroma .nc,
+.chroma .nn,
+.chroma .no {
+  color: var(--yellow);
+}
+
+/* Functions */
+.chroma .nf,
+.chroma .fm,
+.chroma .py {
+  color: var(--blue);
+}
+
+/* Built-ins and attributes */
+.chroma .nb,
+.chroma .bp {
+  color: var(--cyan);
+}
+
+.chroma .na {
+  color: var(--yellow);
+}
+
+/* Tags, variables and entities */
+.chroma .nt {
+  color: var(--red);
+}
+
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi {
+  color: var(--red);
+}
+
+.chroma .ni,
+.chroma .nl {
+  color: var(--orange);
+}
+
+.chroma .nd {
+  color: var(--magenta);
+}
+
+.chroma .n,
+.chroma .nx {
+  color: var(--fg);
+}
+
+/* Strings */
+.chroma .s,
+.chroma .s1,
+.chroma .s2,
+.chroma .sa,
+.chroma .sb,
+.chroma .sc,
+.chroma .sd,
+.chroma .sh,
+.chroma .sx,
+.chroma .ss,
+.chroma .sr {
+  color: var(--green);
+}
+
+/* Escapes and interpolation stand out from the string around them */
+.chroma .se,
+.chroma .si {
+  color: var(--cyan);
+}
+
+/* Numbers */
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .mo,
+.chroma .il {
+  color: var(--orange);
+}
+
+/* Operators and punctuation */
+.chroma .o {
+  color: var(--cyan);
+}
+
+.chroma .ow {
+  color: var(--magenta);
+}
+
+.chroma .p {
+  color: var(--fg-dim);
+}
+
+.chroma .err {
+  color: var(--red);
+}
+
+/* Generic tokens, used by diff and markdown lexers */
+.chroma .gd {
+  color: var(--red);
+}
+
+.chroma .gi {
+  color: var(--green);
+}
+
+.chroma .gh,
+.chroma .gu {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.chroma .ge {
+  font-style: italic;
+}
+
+.chroma .gs {
+  font-weight: 600;
+}
+
+/* =========================================
+   12. Content: code blocks
+   ========================================= */
+
+.code-block {
+  margin: 1.75rem 0;
+  border: 1px solid var(--selection);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+
+.code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 0.5rem 0.4rem 0.9rem;
+  font-size: 0.75rem;
+  border-bottom: 1px solid var(--selection);
+}
+
+.code-lang {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.code-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.code-copy,
+.code-collapse {
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--fg-dim);
+  background: none;
+  border: 1px solid var(--selection);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.code-copy {
+  padding: 0.3rem 0.65rem;
+}
+
+.code-collapse {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.code-collapse::before {
+  content: "▾";
+}
+
+.code-collapse[aria-expanded="false"]::before {
+  content: "▸";
+}
+
+.code-copy:hover,
+.code-collapse:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Set briefly by global.js after a successful copy. */
+.code-copy.copied {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.code-block.collapsed .highlight {
+  display: none;
+}
+
+.code-block .highlight,
+.code-block .chroma {
+  margin: 0;
+  background: var(--bg);
+}
+
+.code-block pre.chroma {
+  margin: 0;
+  padding: 0.85rem 0;
+  background: none;
+}
+
+.lntable {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-collapse: collapse;
+}
+
+.lntable td.lntd {
+  padding: 0;
+  border: none;
+  vertical-align: top;
+}
+
+/* Line numbers: shrink to fit and never get picked up by a selection. */
+.lntable td.lntd:first-child {
+  width: 1%;
+  white-space: nowrap;
+  user-select: none;
+  border-right: 1px solid var(--selection);
+}
+
+.lntable td.lntd:first-child pre.chroma {
+  padding-left: 0.9rem;
+  padding-right: 0.75rem;
+}
+
+/* max-width:0 with width:100% forces the cell to ignore its content width,
+   which is what lets the <pre> inside it scroll instead of stretching the
+   table and pushing the whole block sideways. */
+.lntable td.lntd:last-child {
+  width: 100%;
+  max-width: 0;
+}
+
+.lntable td.lntd:last-child pre.chroma {
+  overflow-x: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.chroma .lnt {
+  color: var(--muted);
+  user-select: none;
+}
+
+.chroma .line {
+  display: block;
+}
+
+/* Fenced block with no language: no bar, no line numbers. */
+pre.code-plain {
+  margin: 1.75rem 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+  border-radius: 8px;
+}
+
+/* Every scrolling region in the content area follows the same hidden-until-
+   hover treatment as the table of contents: the track is always transparent
+   and the thumb only fades in on hover, in the active theme's --muted. Kept as
+   one grouped rule so a new scrolling block only has to be added here. */
+.lntable td.lntd:last-child pre.chroma,
+pre.code-plain,
+.table-wrap,
+.page-content figure.mermaid,
+.page-content .math-block {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+.code-block:hover .lntable td.lntd:last-child pre.chroma,
+pre.code-plain:hover,
+.table-wrap:hover,
+.page-content figure.mermaid:hover,
+.page-content .math-block:hover {
+  scrollbar-color: var(--muted) transparent;
+}
+
+.lntable td.lntd:last-child pre.chroma::-webkit-scrollbar,
+pre.code-plain::-webkit-scrollbar,
+.table-wrap::-webkit-scrollbar,
+.page-content figure.mermaid::-webkit-scrollbar,
+.page-content .math-block::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.lntable td.lntd:last-child pre.chroma::-webkit-scrollbar-thumb,
+pre.code-plain::-webkit-scrollbar-thumb,
+.table-wrap::-webkit-scrollbar-thumb,
+.page-content figure.mermaid::-webkit-scrollbar-thumb,
+.page-content .math-block::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.code-block:hover .lntable td.lntd:last-child pre.chroma::-webkit-scrollbar-thumb,
+pre.code-plain:hover::-webkit-scrollbar-thumb,
+.table-wrap:hover::-webkit-scrollbar-thumb,
+.page-content figure.mermaid:hover::-webkit-scrollbar-thumb,
+.page-content .math-block:hover::-webkit-scrollbar-thumb {
+  background: var(--muted);
+}
+
+/* Tracks stay invisible in every state so the layout never shifts. */
+.lntable td.lntd:last-child pre.chroma::-webkit-scrollbar-track,
+pre.code-plain::-webkit-scrollbar-track,
+.table-wrap::-webkit-scrollbar-track,
+.page-content figure.mermaid::-webkit-scrollbar-track,
+.page-content .math-block::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =========================================
+   13. Content: tables
+   ========================================= */
+
+/* Wrapper added by global.js so a wide table scrolls instead of overflowing
+   the column. A <table> cannot do this itself: display:block would break
+   the column alignment. */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+/* :not(.lntable) throughout, because Chroma's line-number layout is also a
+   table sitting inside .page-content and must not pick up any of this. */
+.page-content table:not(.lntable) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.page-content table:not(.lntable) th,
+.page-content table:not(.lntable) td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--selection);
+  text-align: left;
+}
+
+.page-content table:not(.lntable) thead th {
+  background: var(--bg-alt);
+  color: var(--fg-bright);
+  font-weight: 600;
+}
+
+/* Goldmark emits inline text-align for :---: alignment markers; the style
+   attribute outranks the rule above, so alignment still works. */
+.page-content table:not(.lntable) tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--bg-alt) 45%, transparent);
+}
+
+/* =========================================
+   14. Content: prose
+   ========================================= */
+
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+  margin: 2rem 0 0.75rem;
+  color: var(--fg-bright);
+  line-height: 1.3;
+}
+
+.page-content h1 { font-size: 1.9rem; }
+.page-content h2 { font-size: 1.55rem; }
+.page-content h3 { font-size: 1.3rem; }
+.page-content h4 { font-size: 1.1rem; }
+.page-content h5 { font-size: 1rem; }
+.page-content h6 { font-size: 0.9rem; color: var(--fg-dim); }
+
+.page-content ul,
+.page-content ol {
+  padding-left: 1.4rem;
+}
+
+.page-content li > ul,
+.page-content li > ol {
+  margin-bottom: 0;
+}
+
+/* Task lists: drop the marker only on lists that actually contain checkboxes. */
+.page-content ul:has(> li > input[type="checkbox"]) {
+  list-style: none;
+  padding-left: 0.25rem;
+}
+
+.page-content li > input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--accent);
+}
+
+/* Definition lists */
+.page-content dl {
+  margin: 1.25rem 0;
+}
+
+.page-content dt {
+  font-weight: 600;
+  color: var(--fg-bright);
+  margin-top: 0.75rem;
+}
+
+.page-content dd {
+  margin: 0.2rem 0 0 1.25rem;
+  color: var(--fg-dim);
+}
+
+.page-content dd::before {
+  content: "—";
+  margin-right: 0.5rem;
+  color: var(--muted);
+}
+
+/* Blockquotes */
+.page-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 3px solid var(--selection);
+  color: var(--fg-dim);
+}
+
+.page-content blockquote blockquote {
+  margin: 0.75rem 0;
+}
+
+/* GitHub alerts */
+.page-content blockquote.alert {
+  padding: 0.85rem 1rem;
+  border-left-width: 4px;
+  border-radius: 0 6px 6px 0;
+  background: var(--bg-alt);
+  color: var(--fg);
+}
+
+.alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.alert-title::before {
+  font-size: 0.95em;
+}
+
+.alert-note { border-left-color: var(--blue); }
+.alert-note .alert-title { color: var(--blue); }
+.alert-note .alert-title::before { content: "ℹ"; }
+
+.alert-tip { border-left-color: var(--green); }
+.alert-tip .alert-title { color: var(--green); }
+.alert-tip .alert-title::before { content: "✦"; }
+
+.alert-important { border-left-color: var(--magenta); }
+.alert-important .alert-title { color: var(--magenta); }
+.alert-important .alert-title::before { content: "◆"; }
+
+.alert-warning { border-left-color: var(--orange); }
+.alert-warning .alert-title { color: var(--orange); }
+.alert-warning .alert-title::before { content: "▲"; }
+
+.alert-caution { border-left-color: var(--red); }
+.alert-caution .alert-title { color: var(--red); }
+.alert-caution .alert-title::before { content: "⬤"; }
+
+.page-content blockquote.alert > :last-child {
+  margin-bottom: 0;
+}
+
+/* Images */
+.page-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  /* margin: 1.25rem auto; */
+  /* border-radius: 6px; */
+}
+
+/* Inline formatting */
+.page-content mark {
+  background: var(--yellow);
+  color: var(--bg);
+  padding: 0.05em 0.25em;
+  border-radius: 3px;
+}
+
+.page-content del {
+  color: var(--muted);
+}
+
+.page-content ins {
+  color: var(--green);
+  text-decoration: underline;
+}
+
+.page-content sub,
+.page-content sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.page-content abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+.page-content kbd {
+  font-size: 0.8em;
+  padding: 0.15em 0.4em;
+  border: 1px solid var(--selection);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--bg-alt);
+}
+
+/* Footnotes */
+.footnotes {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--selection);
+  font-size: 0.875rem;
+  color: var(--fg-dim);
+}
+
+.footnotes ol {
+  padding-left: 1.2rem;
+}
+
+.footnote-backref {
+  text-decoration: none;
+  margin-left: 0.35rem;
+}
+
+sup[id^="fnref"] a {
+  text-decoration: none;
+  padding: 0 0.15em;
+}
+
+/* Mermaid diagrams, inlined as SVG at build time by
+   _markup/render-codeblock-mermaid.html. */
+.page-content figure.mermaid {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+}
+
+/* Auto inline margins rather than text-align, because they degrade safely: a
+   diagram narrower than the column is centred, while one that overflows has
+   its margins resolve to zero and starts at the left edge instead of being
+   clipped there, which is what centring an overflowing box would do. */
+.page-content figure.mermaid svg {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Opt-in via a `height` attribute on the fence. The diagram renders at its
+   natural size and scrolls sideways rather than being scaled down to fit the
+   column, which is what makes a long Gantt chart legible. The height acts as a
+   ceiling, not a fixed size: a short, wide diagram is left alone and simply
+   overflows, while a tall one is capped and shrinks to match. Width follows
+   from the viewBox aspect ratio either way. */
+.page-content figure.mermaid.is-scroll svg {
+  max-width: none;
+  width: auto;
+  height: auto;
+  max-height: var(--mermaid-height, 24rem);
+}
+
+
+/* Chrome has no built-in math font fallback list the way Firefox does: it
+   resolves the `math` generic through fontconfig and usually lands on a text
+   font with no OpenType MATH table, which breaks fraction bars, stretchy
+   brackets and radicals. Naming real math fonts explicitly avoids that. */
+.page-content math {
+  font-size: 1.15em;
+  font-family: "Latin Modern Math", "STIX Two Math", "XITS Math",
+    "Cambria Math", "Libertinus Math", "TeX Gyre Termes Math",
+    "DejaVu Math TeX Gyre", math;
+  math-style: normal;
+
+  /* Chrome's MathML Core lets the inherited line-height through, so the body's
+     1.7 distorts the vertical metrics it computes from the font instead of
+     leaving them alone. Firefox ignores it, which is why the two disagree.
+     `normal` hands spacing back to the font's own metrics. */
+  line-height: normal;
+}
+
+/* Matrices and other tabular constructs. Chrome does not implement the
+   rowspacing/columnspacing attributes KaTeX emits, so rows end up jammed
+   together; padding the cells is the portable equivalent. Firefox honours the
+   attributes and the padding lands on top, hence the modest values. */
+.page-content math mtd {
+  padding: 0.2em 0.35em;
+}
+
+/* Stacked constructs -- fractions, sub/superscripts, over/under -- benefit from
+   a little breathing room at display size for the same reason. */
+.page-content .math-block mfrac,
+.page-content .math-block munderover,
+.page-content .math-block munder,
+.page-content .math-block mover {
+  padding-block: 0.1em;
+}
+
+/* Display equations, wrapped by _markup/render-passthrough.html.
+
+   The vertical padding is load-bearing: `overflow-x: auto` forces `overflow-y`
+   to compute to `auto` too, and the resulting scroll container clips at its
+   padding box, so tall constructs (matrices, integrals, stretchy brackets)
+   would be cut off without room to paint into. The scrollbar itself is styled
+   with the other scrolling regions further up. */
+.page-content .math-block {
+  margin: 1.5rem 0;
+  padding: 0.6em 0;
+  overflow-x: auto;
+}
+
+/* KaTeX's wrapper is inline, which would leave the equation sitting on the
+   text baseline and ignoring the centring below. */
+.page-content .math-block .katex {
+  display: block;
+}
+
+/* fit-content keeps the box the width of the equation rather than the column,
+   so the auto margins have something to centre. They also degrade safely: an
+   equation wider than the column resolves them to zero and starts at the left
+   edge instead of overflowing out of reach of the scroll container. */
+.page-content .math-block math {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  font-size: 1.25em;
+}
+
+/* math {
+  direction: ltr;
+  text-indent: 0px;
+  letter-spacing: normal;
+  line-height: normal;
+  word-spacing: normal;
+  font-family: math;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: normal;
+  display: math;
+  math-shift: normal;
+  math-depth: 0;
+} */
