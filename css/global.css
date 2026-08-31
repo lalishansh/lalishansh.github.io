@@ -2196,3 +2196,8 @@ sup[id^="fnref"] a {
   math-shift: normal;
   math-depth: 0;
 } */
+
+
+.page-content blockquote {
+  overflow-x: auto;
+}
