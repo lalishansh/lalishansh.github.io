@@ -1,0 +1,110 @@
+<!doctype html><html lang=en-IN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>VisualStudio C++, Boost C++ and premake &#183; Hugo Site Test</title><link rel=stylesheet href=/css/global.css><script src=/js/fuse.min.js></script><script src=/js/global.js></script></head><body data-search-index=/search-index.json><header class=site-header><a class="pill brand" href=/>Hugo Site Test</a><nav class="pill site-nav"><a href=/docs/>Docs</a><a href=/journals/>Journals</a><a href=/posts/>Posts</a>
+<a href=/about/>About Me</a></nav><div class="pill site-tools"><nav class=links><a href=https://github.com/lalishansh title=GitHub aria-label=GitHub><svg width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16"><path d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8"/></svg></a>
+<a href=https://linkedin.com/in/lalishansh title=LinkedIn aria-label=LinkedIn><svg width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526.0 1.175.0h13.65C15.474.0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487.0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837.0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869.0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274.0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678.0 7.225.0 7.225z"/></svg></a>
+<a href=mailto:lalishansh@gmail.com title=E-mail aria-label=E-mail><svg width="16" height="16" fill="currentColor" class="bi bi-envelope-paper-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6.5 9.5 3 7.5v-6A1.5 1.5.0 014.5.0h7A1.5 1.5.0 0113 1.5v6l-3.5 2L8 8.75zM1.059 3.635 2 3.133v3.753L0 5.713V5.4a2 2 0 011.059-1.765M16 5.713l-2 1.173V3.133l.941.502A2 2 0 0116 5.4zm0 1.16-5.693 3.337L16 13.372v-6.5zm-8 3.199 7.941 4.412A2 2 0 0114 16H2a2 2 0 01-1.941-1.516zm-8 3.3 5.693-3.162L0 6.873v6.5z"/></svg></a></nav><button class=search-open type=button aria-label=Search title="Search (Ctrl+K)"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7955 15.8111 21 21M18 10.5c0 4.1421-3.3579 7.5-7.5 7.5C6.35786 18 3 14.6421 3 10.5 3 6.35786 6.35786 3 10.5 3 14.6421 3 18 6.35786 18 10.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class=theme-picker></div></div><button class="pill menu-toggle" type=button aria-label=Menu aria-expanded=false aria-controls=site-menu>
+&#9776;</button></header><div class=site-menu id=site-menu><button class=menu-close type=button aria-label="Close menu">&#215;</button><nav class=site-menu-nav><a href=/>Home</a>
+<a href=/docs/>Docs</a><a href=/journals/>Journals</a><a href=/posts/>Posts</a>
+<a href=/about/>About Me</a></nav><nav class=links><a href=https://github.com/lalishansh title=GitHub aria-label=GitHub><svg width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16"><path d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8"/></svg></a>
+<a href=https://linkedin.com/in/lalishansh title=LinkedIn aria-label=LinkedIn><svg width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526.0 1.175.0h13.65C15.474.0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487.0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837.0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869.0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274.0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678.0 7.225.0 7.225z"/></svg></a>
+<a href=mailto:lalishansh@gmail.com title=E-mail aria-label=E-mail><svg width="16" height="16" fill="currentColor" class="bi bi-envelope-paper-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6.5 9.5 3 7.5v-6A1.5 1.5.0 014.5.0h7A1.5 1.5.0 0113 1.5v6l-3.5 2L8 8.75zM1.059 3.635 2 3.133v3.753L0 5.713V5.4a2 2 0 011.059-1.765M16 5.713l-2 1.173V3.133l.941.502A2 2 0 0116 5.4zm0 1.16-5.693 3.337L16 13.372v-6.5zm-8 3.199 7.941 4.412A2 2 0 0114 16H2a2 2 0 01-1.941-1.516zm-8 3.3 5.693-3.162L0 6.873v6.5z"/></svg></a></nav><button class=search-open type=button aria-label=Search><svg width="16" height="16" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.7955 15.8111 21 21M18 10.5c0 4.1421-3.3579 7.5-7.5 7.5C6.35786 18 3 14.6421 3 10.5 3 6.35786 6.35786 3 10.5 3 14.6421 3 18 6.35786 18 10.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<span>Search</span></button><div class="theme-picker inline"></div></div><main><header><div class=hero><nav class=hero-path aria-label=Breadcrumb><a href=/ style=text-decoration:none>Home</a>
+<a href=/posts/ style=text-decoration:none>Posts</a>
+<span aria-current=page>VisualStudio C++, Boost C++ and premake</span></nav><img class=hero-cover src=https://picsum.photos/seed/posts-vs-boost-premake/1600/500 alt width=1600 height=500 loading=lazy decoding=async><h1>VisualStudio C++, Boost C++ and premake</h1><dl class=hero-meta><div><dt>Created</dt><dd><time datetime=2021-09-25>25 Sep 2021</time></dd></div><div><dt>Updated</dt><dd><time datetime=2026-10-18>18 Oct 2026</time></dd></div><div><dt>Length</dt><dd>1041 words &#183; 5 min read</dd></div></dl><ul class=hero-tags><li>programming</li><li>premake</li><li>boost-c++</li></ul></div></header><div class="page-layout has-toc"><aside class="toc panel" data-panel=toc aria-label="Table of contents"><p class=panel-title>Contents
+<button class=panel-toggle type=button aria-expanded=true aria-label="Collapse contents"></button></p><nav id=TableOfContents><ul><li><ul><li><a href=#intigrating-boost-via-direct-download>Intigrating Boost (via direct-download)</a></li><li><a href=#intigrating-boost-via-github-repo-clone>Intigrating Boost (via github repo clone)</a></li></ul></li></ul></nav></aside><div class=page-content><p>Whenever, we Progrmmers have to deploy a larger project 2 things immediately come to mind (they should come to mind, especially if you&rsquo;re going work with others too),</p><ul><li>Source Control</li><li>Build System</li></ul><p>There are several source control are there with git being very popular these days. As for build system there are also too many, coming in large variety flavours
+CMake, scons, build2 to just name a few.</p><p>My favourite is Premake, its super easy to use, and very easily works with Visual Studio. It is well documented, even though its somewhat limited in campatibility
+campared to other tools in the market, being targetted to fewer common IDEs its more reliable.</p><p>Lets discuss how to intigrate Boost C++ libraries and MASM(Microsoft Assembler that comes with Visual studio) to your projects with Premake build system,
+assuming you have windows computer and visual studio as your IDE.</p><p>Note: For Mac users steps be same normally, though try MSDN your IDEs configration, i&rsquo;m not a Mac user.</p><p>So whats the deal, what could go wrong.</p><p>SCROLL FURTHER DOWN FOR LINKING YOUR PROJECT TO BOOSTS-GITHUB-REPO</p><h2 id=intigrating-boost-via-direct-download>Intigrating Boost (via direct-download)</h2><p>The best/easiest way to use boost is to, go over [https://www.boost.org/] then download the latest version,
+extract the zip file to desired location.
+then follow the steps:</p><ul><li>Go to main dir of boost dir ex. for me c:/Dev/Cpp_Repos/boost/</li><li>Open/execute &ldquo;bootstrap.[bat or sh]&rdquo; whichever fits your bill, this will deploy b2 build system (boost&rsquo;s own build system).</li><li>Open cmd and execute &ldquo;b2 headers&rdquo;, this will create directory named &ldquo;boost&rdquo; (inside boost root dir). It will cantain shortcuts to all header folders.
+Many(most) of the boost&rsquo;s individual libraries are header only so well are technically ready to go but say you boost&rsquo;s thread lib, then you need to build the corresponding libraries</li><li>The boost&rsquo;s document says, use/execute &ldquo;b2&rdquo; cammand for building every type of library (ex.: dll dependent, static, thread safe etc.) however that&rsquo;s not true (it is but technically but lets explore)
+By default b2 only builds debug binaries(of most types).
+Note: on some computers(like mine) you have to build library according to your needs.</li></ul><p>Its pretty common to have multiple compilers inside your computer.
+So execute &ldquo;b2 &ndash;help&rdquo; for details regarding what you can do with this tool, it may seem overwhelming if you&rsquo;re a novice so don&rsquo;t worry
+let&rsquo;s get relevant ones that are &ldquo;Properties&rdquo; and &ldquo;Options&rdquo; (or &ldquo;Important Options&rdquo;). I&rsquo;ll skip the details as what each cammands does is already clarified here.
+what we are interested is <a href=https://www.boost.org/doc/libs/1_77_0/tools/build/doc/html/index.html#bbv2.overview.configuration>SRC(Boost documentation, section4-Invocation/Configration)</a>:
+toolset, address-model(optional), runtime-link, threading, variant (assuming you have MSVC as your compiler, otherwise requirements may vary).</p><p>Note: if you are not sure about which MSVC toolset you have then,
+open any VS-Project -> [Right-click on any of the project in solution explorer, click properties OR click Project in main menu bar on top, click proprties]
+.. -> Inside &ldquo;Configration Properties/General&rdquo; see platform-toolset, ex. v142 means msvc-14.2</p><p>in Visual Studio 2019
+toolset=msvc-14.2</p><p>It&rsquo;s very important to understand what type of library you require for the project, otherwise you may get linker error saying library not found</p><p>Whenever you build boost library, if go to the build/stage/lib, you&rsquo;ll see a somwhat daunting naming system
+[Documentation: https://www.boost.org/doc/libs/1_77_0/more/getting_started/windows.html#library-naming]</p><p>If you go to VS&rsquo; Runtime Library configration, there are 4 Options</p><pre class=code-plain><code>\MT  - multi-thread static library linking, release build &gt;&gt; -mt &amp; -s
+\MTd - multi-thread static library linking, debug   build &gt;&gt; -mt &amp; -sgd
+\MD  - multi-thread shared library linking, release build &gt;&gt; -mt
+\MDd - multi-thread shared library linking, debug   build &gt;&gt; -mt &amp; gd</code></pre><p>for -mt use threding=multi, for -s use runtime-link=static, for -*gd use variant=debug else variant=release, if you want to be architecture specific use address-model=32 (or 64, arm etc.) else it will build both(32,64)</p><p>Ex.
+b2 toolset=msvc-14.2 threding=multi runtime-link=static variant=release (for /MT)</p><p>it will take some time to build&mldr; (so chill and drink coffee)
+Tip: somtimes shell stops working so you may need to press enter(just to wake it up a bit).</p><p>now all it needs to do is connect it to your VSProject, for that</p><ul><li>Go to Project properties -> Configration properties - C/C++ -> General -> Additional Include directories -> ADD Boost&rsquo;s root &ldquo;./boost/&rdquo; dir not &ldquo;./boost/boost&rdquo; (remember &ldquo;b2 headers&rdquo; which creates shortcuts to all headers inside ./boost/boost/*).</li><li>Due to Auto-linking feature of IDEs, we don&rsquo;t need to specify eack and every library individually, all it needs is directory to all the libraries
+so inside Configration properties - Linker -> General -> Additional Library Directories -> ADD &ldquo;./boost/stage/lib/&rdquo; (where your binaries are built/stored)</li></ul><p>That&rsquo;s it !</p><pre class=code-plain><code>//---------------------
+// main.cpp for test purposes
+//---------------------
+#include &lt;boost/thread.hpp&gt;
+#include &lt;boost/chrono.hpp&gt;
+#include &lt;iostream&gt;
+
+void wait (int seconds)
+{
+	boost::this_thread::sleep_for (boost::chrono::seconds{ seconds });
+}
+
+void thread ()
+{
+	for (int i = 0; i &lt; 5; &#43;&#43;i) {
+		wait (1);
+		std::cout &lt;&lt; i &lt;&lt; &#39;\n&#39;;
+	}
+}
+
+int main ()
+{
+	boost::thread t{ thread };
+	t.join ();
+}</code></pre><p>FOR premake:</p><pre class=code-plain><code>----------------------------
+-- scripts/boostDir.lua to store location of boost
+----------------------------
+local boost = {} -- module
+function boost.Dir() -- absolute path to boost
+    return &#34;C:/Dev/Cpp_Repos/boost/&#34;
+end
+function boost.RelBin() -- relative path to binaries from root of boost
+    return &#34;stage/lib/&#34;
+end
+return boost
+----------------------------
+-- [Project COPpremake5.lua
+----------------------------
+boost = require(&#34;scripts.boostDir&#34;) -- loading module
+
+project &#34;sample&#34;
+    includedirs
+	{
+        &#34;%{boost.Dir()}&#34;
+    }
+    libdirs &#34;%{boost.Dir()}%{boost.RelBin()}&#34;
+
+=============X============</code></pre><h2 id=intigrating-boost-via-github-repo-clone>Intigrating Boost (via github repo clone)</h2><ul><li>Refer to wiki on cloning [https://github.com/boostorg/wiki/wiki/Getting-Started%3A-Overview]</li><li>It will take quite a bit of time to clone.</li><li>after cloning go to step-2 of Intigrating Boost (via direct-download)
+Common problem of mismatch library version:
+since the github repo is ahead of the releases, so it is common for the built-binaries and required libraries to be of different version
+and then get the error like
+Error LNK1104 cannot open file &rsquo;libboost_thread-vc142-mt-sgd-x32-1_77.lib'
+so go to the lib folder &ldquo;./boost/stage/lib/&rdquo;, hunt down &ldquo;libboost_thread-vc142-mt-sgd-x32-X_XX.lib&rdquo;, if its not there then you gotta build for that purticular
+configration, the see which version the binary is built for &ldquo;X_XX&rdquo; (in my case &ldquo;1_78&rdquo;), got to your project, and wherever you are including boost libs
+add on top:</li></ul><pre class=code-plain><code>#include &lt;boost/version.hpp&gt; // go inside version.hpp for more information
+#define BOOST_VERSION 107800
+#define BOOST_LIB_VERSION &#34;1_78&#34;
+    ^ to fix the linker error.</code></pre><p>Example:</p><pre class=code-plain><code>#include &lt;boost/version.hpp&gt; // go inside version.hpp for more information
+#define BOOST_VERSION 107800
+#define BOOST_LIB_VERSION &#34;1_78&#34;
+
+#include &lt;boost/thread.hpp&gt;
+#include &lt;boost/chrono.hpp&gt;
+
+int main (){
+    boost::this_thread::sleep_for(boost::chrono::seconds(60));
+}</code></pre><section class=utterances aria-label=Comments><div class=reactions data-reactions data-repo=lalishansh/lalishansh.github.io data-issue-term=pathname data-term=posts/vs-boost-premake/ data-defaults=+1,-1 data-label=comment><div class=reactions__bar role=toolbar aria-label=Reactions><div class=reactions__pills data-reactions-pills><button type=button class=reactions__btn data-reaction=+1 data-default title="Thumbs up" aria-label="Thumbs up">
+<span class=reactions__emoji aria-hidden=true>👍</span>
+<span class=reactions__count data-count hidden>0</span>
+</button><button type=button class=reactions__btn data-reaction=-1 data-default title="Thumbs down" aria-label="Thumbs down">
+<span class=reactions__emoji aria-hidden=true>👎</span>
+<span class=reactions__count data-count hidden>0</span></button></div><details class=reactions__picker><summary class=reactions__add title="Add reaction" aria-label="Add reaction"><svg class="reactions__add-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0a8 8 0 110 16A8 8 0 018 0zM1.5 8a6.5 6.5.0 1013 0 6.5 6.5.0 00-13 0zm3.75-1.25a.75.75.0 11-1.5.0.75.75.0 011.5.0zm4.25.75a.75.75.0 100-1.5.75.75.0 000 1.5zM8 12.5a3.25 3.25.0 01-2.85-1.75.75.75.0 111.32-.72 1.75 1.75.0 003.06.0.75.75.0 011.32.72A3.25 3.25.0 018 12.5z"/></svg></summary><ul class=reactions__menu role=menu aria-label="Pick your reaction"><li role=none><button type=button class=reactions__menu-btn data-reaction=+1 role=menuitem title="Thumbs up" aria-label="Thumbs up">👍</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=-1 role=menuitem title="Thumbs down" aria-label="Thumbs down">👎</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=laugh role=menuitem title=Laugh aria-label=Laugh>😄</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=confused role=menuitem title=Confused aria-label=Confused>😕</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=heart role=menuitem title=Heart aria-label=Heart>❤️</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=hooray role=menuitem title=Hooray aria-label=Hooray>🎉</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=rocket role=menuitem title=Rocket aria-label=Rocket>🚀</button></li><li role=none><button type=button class=reactions__menu-btn data-reaction=eyes role=menuitem title=Eyes aria-label=Eyes>👀</button></li></ul></details></div><p class=reactions__hint data-reactions-hint hidden></p></div><script src=https://utteranc.es/client.js repo=lalishansh/lalishansh.github.io issue-term=pathname label=comment theme=github-dark crossorigin=anonymous async></script></section></div></div></main><footer>Built with Hugo 0.163.3</footer><button class=to-return type=button title="Back to where you were" aria-label="Back to where you were">&crarr;</button>
+<button class=to-top type=button title="Back to top" aria-label="Back to top">&uarr;</button><div class=search-overlay id=site-search role=dialog aria-modal=true aria-label=Search aria-hidden=true hidden><div class=search-dialog><label class=search-label for=search-input>Search</label>
+<input class=search-input id=search-input type=search placeholder="Search posts, journals, docs…" autocomplete=off spellcheck=false tabindex=0><p class=search-hint aria-hidden=true><kbd>↑</kbd><kbd>↓</kbd> navigate
+<kbd>Enter</kbd> open
+<kbd>Esc</kbd> close</p><ul class=search-results role=listbox aria-label="Search results"></ul><p class=search-empty hidden>No results.</p><p class=search-loading hidden>Loading index…</p></div></div></body></html>

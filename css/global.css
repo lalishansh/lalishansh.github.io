@@ -547,8 +547,186 @@ hr {
 }
 
 /* Prevents the page behind the overlay from scrolling. */
-body.menu-open {
+body.menu-open,
+body.search-open {
   overflow: hidden;
+}
+
+/* ## Search modal */
+
+.search-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0;
+  font: inherit;
+  line-height: 1;
+  color: var(--fg-dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search-open:hover {
+  color: var(--accent);
+}
+
+.search-open svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.site-tools .search-open {
+  padding-left: 1rem;
+  border-left: 1px solid var(--selection);
+}
+
+.site-menu .search-open {
+  font-size: 1.4rem;
+  color: var(--fg);
+}
+
+.site-menu .search-open svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--layer-topmost) + 1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10vh 1rem 2rem;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.search-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-dialog {
+  width: min(100%, 36rem);
+  padding: 1rem 1rem 0.75rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--selection);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 28%);
+}
+
+.search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.search-input {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--selection);
+  border-radius: 8px;
+}
+
+.search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.search-hint {
+  margin: 0.55rem 0 0.35rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.search-hint kbd {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  color: var(--fg-dim);
+  background: var(--bg);
+  border: 1px solid var(--selection);
+  border-radius: 4px;
+}
+
+.search-results {
+  list-style: none;
+  max-height: 50vh;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.search-result {
+  display: block;
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.25rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.search-result:hover,
+.search-result.active {
+  background: var(--selection);
+}
+
+.search-result-title {
+  display: block;
+  font-weight: 600;
+  color: var(--fg-bright);
+}
+
+.search-result-section {
+  display: inline-block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.search-result-summary {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--fg-dim);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.search-empty,
+.search-loading {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-overlay {
+    transition: none;
+  }
 }
 
 @media (max-width: 700px) {
@@ -1415,12 +1593,12 @@ footer {
 }
 
 /* =========================================
-   9. Comments (utterances)
+   9. Comments (utterances) + reactions
    ========================================= */
 
 .utterances {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--selection);
 }
 
@@ -1429,6 +1607,230 @@ footer {
   display: block;
   width: 100%;
   max-width: 100%;
+}
+
+/* GitHub-like reaction toolbar: compact pills + horizontal emoji picker. */
+.reactions {
+  margin-bottom: 0.75rem;
+}
+
+.reactions__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.reactions__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.reactions__btn,
+.reactions__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0;
+  min-height: 1.75rem;
+  padding: 0 0.5rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--fg-dim);
+  background: var(--bg);
+  border: 1px solid var(--selection);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.reactions__btn:hover,
+.reactions__add:hover {
+  color: var(--fg);
+  background: var(--bg-alt);
+  border-color: var(--muted);
+}
+
+.reactions__btn.has-count {
+  color: var(--fg);
+  background: var(--bg-alt);
+  border-color: var(--accent);
+}
+
+.reactions__btn:focus-visible,
+.reactions__add:focus-visible,
+.reactions__menu-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.reactions__count {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-dim);
+}
+
+.reactions__btn.has-count .reactions__count {
+  color: var(--fg);
+}
+
+.reactions__emoji {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.reactions__picker {
+  position: relative;
+}
+
+.reactions__picker > summary {
+  list-style: none;
+}
+
+.reactions__picker > summary::-webkit-details-marker {
+  display: none;
+}
+
+.reactions__add {
+  position: relative;
+  width: 1.75rem;
+  padding: 0;
+  color: var(--fg-dim);
+}
+
+.reactions__add-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Compact “+” badge on the smiley, like GitHub’s add-reaction control. */
+.reactions__add::after {
+  content: "+";
+  position: absolute;
+  right: -0.1rem;
+  bottom: -0.05rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  display: grid;
+  place-items: center;
+  font-size: 0.55rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bg);
+  background: var(--fg-dim);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.reactions__picker[open] > .reactions__add,
+.reactions__add:hover {
+  color: var(--fg);
+}
+
+.reactions__picker[open] > .reactions__add::after,
+.reactions__add:hover::after {
+  background: var(--fg);
+}
+
+/* Horizontal ActionList-style picker (matches GitHub’s reaction menu). */
+.reactions__menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  z-index: var(--layer-topmost);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--selection);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--fg) 18%, transparent);
+  transform: translateX(-50%);
+}
+
+.reactions__menu-btn {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.reactions__menu-btn:hover {
+  background: var(--bg-alt);
+}
+
+.reactions__hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Portrait: class goes on the wrapping <p> (Goldmark block attrs), not the <img>. */
+.page-content p.about-photo {
+  float: right;
+  width: 20%;
+  margin: 0 0 1rem 1rem;
+}
+
+.page-content p.about-photo img,
+.page-content img.about-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.page-content img.blend-screen {
+  display: block;
+  margin-inline: auto;
+  mix-blend-mode: screen;
+}
+
+.page-content .pdf-embed {
+  margin: 1rem 0;
+}
+
+.page-content .pdf-embed iframe {
+  display: block;
+  width: 100%;
+  background: var(--bg-alt);
+  border-radius: 6px;
+}
+
+.page-content .pdf-embed figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 40rem) {
+  .page-content p.about-photo {
+    float: none;
+    width: 40%;
+    margin: 0 auto 1rem;
+  }
 }
 
 /* =========================================
@@ -2180,6 +2582,27 @@ sup[id^="fnref"] a {
   width: fit-content;
   margin-inline: auto;
   font-size: 1.25em;
+}
+
+/* =========================================
+   404
+   ========================================= */
+
+.not-found {
+  text-align: center;
+  padding: 4rem 0 6rem;
+}
+
+.not-found__code {
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.not-found h1 {
+  margin: 0.75rem 0 0.5rem;
 }
 
 /* math {

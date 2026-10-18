@@ -140,6 +140,119 @@
     });
   }
 
+  /* Page reactions: sync counts from the utterances GitHub issue; click opens it. */
+
+  var REACTION_META = {
+    "+1": { emoji: "👍", name: "Thumbs up" },
+    "-1": { emoji: "👎", name: "Thumbs down" },
+    laugh: { emoji: "😄", name: "Laugh" },
+    confused: { emoji: "😕", name: "Confused" },
+    heart: { emoji: "❤️", name: "Heart" },
+    hooray: { emoji: "🎉", name: "Hooray" },
+    rocket: { emoji: "🚀", name: "Rocket" },
+    eyes: { emoji: "👀", name: "Eyes" },
+  };
+
+  function initReactions() {
+    var el = document.querySelector("[data-reactions]");
+    if (!el) return;
+
+    var pills = el.querySelector("[data-reactions-pills]");
+    var hint = el.querySelector("[data-reactions-hint]");
+    var defaults = (el.dataset.defaults || "+1,-1").split(",");
+    var issueUrl = null;
+
+    function setHint(text) {
+      if (!hint) return;
+      hint.textContent = text || "";
+      hint.hidden = !text;
+    }
+
+    function pill(id) {
+      var btn = pills.querySelector('.reactions__btn[data-reaction="' + id + '"]');
+      if (btn || !REACTION_META[id]) return btn;
+      btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "reactions__btn";
+      btn.dataset.reaction = id;
+      btn.title = REACTION_META[id].name;
+      btn.innerHTML =
+        '<span class="reactions__emoji" aria-hidden="true">' +
+        REACTION_META[id].emoji +
+        '</span><span class="reactions__count" data-count hidden></span>';
+      pills.appendChild(btn);
+      return btn;
+    }
+
+    function setCount(id, n) {
+      var btn = pills.querySelector('.reactions__btn[data-reaction="' + id + '"]');
+      if (!btn && n > 0) btn = pill(id);
+      if (!btn) return;
+      if (n <= 0 && defaults.indexOf(id) === -1) {
+        btn.remove();
+        return;
+      }
+      var count = btn.querySelector("[data-count]");
+      if (count) {
+        count.textContent = n;
+        count.hidden = n <= 0;
+      }
+      btn.classList.toggle("has-count", n > 0);
+    }
+
+    el.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-reaction]");
+      if (!btn || !el.contains(btn)) return;
+      e.preventDefault();
+      var picker = btn.closest("details");
+      if (picker) picker.open = false;
+      if (issueUrl) {
+        window.open(issueUrl, "_blank", "noopener");
+      } else {
+        setHint("Leave the first comment below to create this page’s GitHub issue, then you can react there.");
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!el.contains(e.target)) {
+        el.querySelectorAll("details.reactions__picker").forEach(function (d) {
+          d.open = false;
+        });
+      }
+    });
+
+    var repo = el.dataset.repo;
+    var term = el.dataset.term;
+    if (!repo || !term) return;
+
+    var q = 'repo:' + repo + ' "' + term + '" in:title';
+    if (el.dataset.label) q += " label:" + el.dataset.label;
+
+    fetch(
+      "https://api.github.com/search/issues?q=" + encodeURIComponent(q) + "&per_page=1",
+      { headers: { Accept: "application/vnd.github+json" } }
+    )
+      .then(function (r) {
+        return r.ok ? r.json() : Promise.reject();
+      })
+      .then(function (data) {
+        var issue = data.items && data.items[0];
+        if (!issue) {
+          setHint("Be the first to comment below — that creates the issue reactions attach to.");
+          return;
+        }
+        issueUrl = issue.html_url;
+        setHint("");
+        var reactions = issue.reactions || {};
+        Object.keys(REACTION_META).forEach(function (id) {
+          setCount(id, reactions[id] || 0);
+        });
+      })
+      .catch(function () {
+        setHint("Could not load reaction counts from GitHub.");
+      });
+  }
+
   function initMenu() {
     var toggle = document.querySelector(".menu-toggle");
     var menu = document.getElementById("site-menu");
@@ -569,6 +682,270 @@
     });
   }
 
+  function initSearch() {
+    var overlay = document.getElementById("site-search");
+    if (!overlay || typeof Fuse === "undefined") return;
+
+    var input = overlay.querySelector(".search-input");
+    var results = overlay.querySelector(".search-results");
+    var empty = overlay.querySelector(".search-empty");
+    var loading = overlay.querySelector(".search-loading");
+    var dialog = overlay.querySelector(".search-dialog");
+    var indexUrl = document.body.getAttribute("data-search-index");
+    if (!input || !indexUrl) return;
+
+    var fuse = null;
+    var activeIndex = -1;
+    var currentItems = [];
+    var timer = null;
+    var indexPromise = null;
+
+    function isTypingTarget(el) {
+      if (!el || !el.tagName) return false;
+      var tag = el.tagName.toLowerCase();
+      return (
+        tag === "input" ||
+        tag === "textarea" ||
+        tag === "select" ||
+        el.isContentEditable
+      );
+    }
+
+    function isOpen() {
+      return overlay.classList.contains("open");
+    }
+
+    // Steal keyboard focus into the search field. Called on open from both the
+    // header button and Ctrl+K / /. A zero-delay timeout re-asserts after the
+    // click that opened the modal finishes, because browsers otherwise leave
+    // focus on the button that was pressed.
+    function focusInput() {
+      if (document.activeElement && document.activeElement !== input) {
+        document.activeElement.blur();
+      }
+      input.focus({ preventScroll: true });
+      input.select();
+      setTimeout(function () {
+        if (!isOpen()) return;
+        if (document.activeElement !== input) {
+          input.focus({ preventScroll: true });
+          input.select();
+        }
+      }, 0);
+    }
+
+    function setOpen(open) {
+      overlay.classList.toggle("open", open);
+      overlay.hidden = !open;
+      overlay.setAttribute("aria-hidden", String(!open));
+      document.body.classList.toggle("search-open", open);
+
+      if (open) {
+        loadIndex();
+        focusInput();
+      } else {
+        input.value = "";
+        renderResults([]);
+        empty.hidden = true;
+        empty.textContent = "No results.";
+      }
+    }
+
+    function loadIndex() {
+      if (fuse) return indexPromise;
+      loading.hidden = false;
+      indexPromise = fetch(indexUrl)
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          fuse = new Fuse(data, {
+            keys: [
+              { name: "title", weight: 0.5 },
+              { name: "section", weight: 0.2 },
+              { name: "summary", weight: 0.15 },
+              { name: "content", weight: 0.15 },
+            ],
+            threshold: 0.4,
+            ignoreLocation: true,
+          });
+        })
+        .catch(function () {
+          empty.textContent = "Could not load search index.";
+          empty.hidden = false;
+        })
+        .finally(function () {
+          loading.hidden = true;
+        });
+      return indexPromise;
+    }
+
+    function renderResults(items) {
+      currentItems = items;
+      activeIndex = items.length ? 0 : -1;
+      results.textContent = "";
+      empty.hidden = items.length > 0 || !input.value.trim();
+
+      items.forEach(function (item, i) {
+        var li = document.createElement("li");
+        li.setAttribute("role", "option");
+        li.setAttribute("aria-selected", String(i === activeIndex));
+
+        var link = document.createElement("a");
+        link.href = item.url;
+        link.className = "search-result" + (i === activeIndex ? " active" : "");
+        link.tabIndex = -1;
+
+        var title = document.createElement("span");
+        title.className = "search-result-title";
+        title.textContent = item.title;
+
+        var section = document.createElement("span");
+        section.className = "search-result-section";
+        section.textContent = item.section;
+
+        link.appendChild(title);
+        link.appendChild(section);
+
+        if (item.summary) {
+          var summary = document.createElement("span");
+          summary.className = "search-result-summary";
+          summary.textContent = item.summary;
+          link.appendChild(summary);
+        }
+
+        li.appendChild(link);
+        results.appendChild(li);
+      });
+    }
+
+    function highlightActive() {
+      var links = results.querySelectorAll(".search-result");
+      links.forEach(function (link, i) {
+        link.classList.toggle("active", i === activeIndex);
+        link.parentElement.setAttribute("aria-selected", String(i === activeIndex));
+      });
+      if (activeIndex >= 0 && links[activeIndex]) {
+        links[activeIndex].scrollIntoView({ block: "nearest" });
+      }
+    }
+
+    function runSearch() {
+      var query = input.value.trim();
+      if (!query) {
+        renderResults([]);
+        empty.hidden = true;
+        return;
+      }
+      if (!fuse) return;
+      var hits = fuse.search(query, { limit: 12 }).map(function (hit) {
+        return hit.item;
+      });
+      renderResults(hits);
+    }
+
+    input.addEventListener("input", function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (fuse) runSearch();
+        else if (indexPromise) indexPromise.then(runSearch);
+      }, 150);
+    });
+
+    // Result links would otherwise take focus on mousedown and leave the input,
+    // which breaks arrow-key navigation. Keep focus on the field; navigate on click.
+    results.addEventListener("mousedown", function (e) {
+      if (e.target.closest(".search-result")) e.preventDefault();
+    });
+
+    results.addEventListener("mouseover", function (e) {
+      var link = e.target.closest(".search-result");
+      if (!link) return;
+      var links = results.querySelectorAll(".search-result");
+      activeIndex = Array.prototype.indexOf.call(links, link);
+      highlightActive();
+    });
+
+    results.addEventListener("click", function (e) {
+      var link = e.target.closest(".search-result");
+      if (!link) return;
+      e.preventDefault();
+      setOpen(false);
+      window.location.href = link.getAttribute("href");
+    });
+
+    if (dialog) {
+      dialog.addEventListener("mousedown", function (e) {
+        if (e.target.closest(".search-input")) return;
+        if (e.target.closest(".search-result")) return;
+        e.preventDefault();
+        focusInput();
+      });
+    }
+
+    document.querySelectorAll(".search-open").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var menu = document.getElementById("site-menu");
+        if (menu) {
+          menu.classList.remove("open");
+          document.body.classList.remove("menu-open");
+          var menuToggle = document.querySelector(".menu-toggle");
+          if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
+        }
+        setOpen(true);
+      });
+    });
+
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) setOpen(false);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (!isOpen()) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          setOpen(true);
+          return;
+        }
+        if (e.key === "/" && !isTypingTarget(document.activeElement)) {
+          e.preventDefault();
+          setOpen(true);
+        }
+        return;
+      }
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (!currentItems.length) return;
+        activeIndex = Math.min(activeIndex + 1, currentItems.length - 1);
+        highlightActive();
+        return;
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (!currentItems.length) return;
+        activeIndex = Math.max(activeIndex - 1, 0);
+        highlightActive();
+        return;
+      }
+      if (e.key === "Enter" && activeIndex >= 0) {
+        var link = results.querySelectorAll(".search-result")[activeIndex];
+        if (link) {
+          e.preventDefault();
+          setOpen(false);
+          window.location.href = link.getAttribute("href");
+        }
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     buildPicker();
     initMenu();
@@ -579,5 +956,7 @@
     initCodeBlocks();
     initTables();
     initUtterances();
+    initReactions();
+    initSearch();
   });
 })();
